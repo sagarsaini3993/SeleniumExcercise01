@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,23 +11,35 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class InputBoxTest {
+	
+	
+	WebDriver driver;
+	final String URL = "https://www.seleniumeasy.com/test/basic-first-form-demo.html";
+	final String DRIVER_PATH = "/Users/macstudent/Desktop/chromedriver";
 
 	@Before
 	public void setUp() throws Exception {
+		
+		System.setProperty("webdriver.chrome.driver",DRIVER_PATH);
+		driver = new ChromeDriver();
+		
+		driver.get(URL);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		
+		Thread.sleep(1000);
+		TimeUnit.SECONDS.sleep(1);
+		driver.close();
+
 	}
 
 	@Test
-	public void testSingleInputField() {
+	public void testSingleInputField() throws Throwable{
 //		fail("Not yet implemented");
 		
-		System.setProperty("webdriver.chrome.driver","/Users/macstudent/Desktop/chromedriver");
-		WebDriver driver = new ChromeDriver();
 		
-		driver.get("https://www.seleniumeasy.com/test/basic-first-form-demo.html");
 		
 //		1. Find the textbox.   (id = user-message)
 //		2. Type "Hello World" into textbox.
@@ -45,6 +59,8 @@ public class InputBoxTest {
 		
 		assertEquals("Hello World", outputMessage);
 		
+		Thread.sleep(1000);
+		TimeUnit.SECONDS.sleep(1);
 		driver.close();
 		
 	}
